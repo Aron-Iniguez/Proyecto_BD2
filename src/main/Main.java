@@ -9,6 +9,7 @@ package main;
 import conexion.ConexionDB;
 import menus.UsuarioMenu;
 import menus.PlataformaMenu;
+import menus.JuegoMenu;
 
 import java.util.Scanner;
 
@@ -75,10 +76,10 @@ public class Main {
                     PlataformaMenu.mostrar();
                     break;
                 case 3:
-                    //JuegoMenu.mostrar();
+                    JuegoMenu.mostrar();
                     break;
                 case 4:
-                    //ColeccionMenu.mostrar();
+                    ColeccionMenu.mostrar();
                     break;
                 case 0:
                     return;
