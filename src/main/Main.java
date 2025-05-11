@@ -10,6 +10,7 @@ import conexion.ConexionDB;
 import menus.UsuarioMenu;
 import menus.PlataformaMenu;
 import menus.JuegoMenu;
+import menus.ColeccionMenu;
 
 import java.util.Scanner;
 
