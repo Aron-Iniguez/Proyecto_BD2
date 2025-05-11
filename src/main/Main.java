@@ -8,6 +8,7 @@ package main;
 
 import conexion.ConexionDB;
 import menus.UsuarioMenu;
+import menus.PlataformaMenu;
 
 import java.util.Scanner;
 
@@ -71,7 +72,7 @@ public class Main {
                     UsuarioMenu.mostrar();
                     break;
                 case 2:
-                    //PlataformaMenu.mostrar();
+                    PlataformaMenu.mostrar();
                     break;
                 case 3:
                     //JuegoMenu.mostrar();
