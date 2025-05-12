@@ -162,6 +162,61 @@ public class ColeccionService {
     }
 
     public static void eliminarJuegoConTransaccion() {
-        // Por implementar
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Ingrese el ID del usuario: ");
+        int userId = sc.nextInt();
+        sc.nextLine();
+
+        if (!UsuarioDAO.existeUsuario(userId)) {
+            System.out.println("⚠️ Usuario no encontrado.");
+            return;
+        }
+
+        System.out.print("Ingrese el ID del juego que desea eliminar de la colección: ");
+        int gameId = sc.nextInt();
+        sc.nextLine();
+
+        if (!JuegoDAO.existeJuego(gameId)) {
+            System.out.println("⚠️ Juego no encontrado.");
+            return;
+        }
+
+        String sqlDelete = "DELETE FROM game_collection WHERE user_id = ? AND game_id = ?";
+
+        try (Connection conn = ConexionDB.obtenerConexion()) {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement ps = conn.prepareStatement(sqlDelete)) {
+                ps.setInt(1, userId);
+                ps.setInt(2, gameId);
+
+                int filasAfectadas = ps.executeUpdate();
+
+                if (filasAfectadas > 0) {
+                    // Registrar en la tabla log
+                    String sqlLog = "INSERT INTO log (user_id, action_type, table_name, record_id, sql_instruction) VALUES (?, 'DELETE', 'game_collection', ?, ?)";
+                    try (PreparedStatement psLog = conn.prepareStatement(sqlLog)) {
+                        psLog.setInt(1, userId);
+                        psLog.setInt(2, gameId);
+                        psLog.setString(3, sqlDelete.replace("?", String.valueOf(userId)).replace("?", String.valueOf(gameId)));
+                        psLog.executeUpdate();
+                    }
+
+                    conn.commit();
+                    System.out.println("✅ Juego eliminado de la colección correctamente.");
+                } else {
+                    conn.rollback();
+                    System.out.println("⚠️ El juego no estaba en la colección del usuario.");
+                }
+
+            } catch (SQLException e) {
+                conn.rollback();
+                System.out.println("❌ Error al eliminar el juego: " + e.getMessage());
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error de conexión: " + e.getMessage());
+        }
     }
 }
