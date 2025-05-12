@@ -43,7 +43,7 @@ public class Main {
                     menuColecciones();
                     break;
                 case 4:
-                    BitacoraService.restaurarDesdeCheckpoint()
+                    BitacoraService.restaurarDesdeCheckpoint();
                     break;
                 case 0:
                     System.out.println("Saliendo del programa...");
