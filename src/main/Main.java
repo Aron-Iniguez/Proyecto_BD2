@@ -11,6 +11,7 @@ import menus.UsuarioMenu;
 import menus.PlataformaMenu;
 import menus.JuegoMenu;
 import menus.ColeccionMenu;
+import servicios.ConsultaService;
 
 import java.util.Scanner;
 
@@ -103,7 +104,7 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    //ConsultaService.mostrarColeccionPorUsuario();
+                    ConsultaService.mostrarColeccionPorUsuario();
                     break;
                 case 2:
                     //ConsultaService.juegosConMasColeccionistas();

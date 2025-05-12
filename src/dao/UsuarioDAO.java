@@ -72,7 +72,7 @@ public class UsuarioDAO {
     }
 
     public static boolean desactivarUsuario(int id) {
-        // Desactivar (borrado lógico): en este ejemplo lo eliminamos físicamente
+        // Desactivar (borrado lógico)
         String sql = "DELETE FROM users WHERE user_id = ?";
         try (Connection conn = ConexionDB.obtenerConexion();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
