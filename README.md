@@ -1,25 +1,28 @@
-##Proyecto Final - Sistema de Administración de Colección de Videojuegos
+## Proyecto Final - Sistema de Administración de Colección de Videojuegos
 
-##Descripción
+## Descripción
 
 Este proyecto es una aplicación de consola desarrollada en Java que permite a múltiples usuarios administrar su colección de videojuegos. Utiliza una base de datos MySQL para almacenar y gestionar la información, incluyendo usuarios, plataformas, juegos, y registros de actividad (bitácora).
 
-##Integrantes del equipo
+## Integrantes del equipo
 
-- [Nombre del integrante 1]
-- [Nombre del integrante 2]
-- [Nombre del integrante 3]
+- Iñiguez Ruíz Aron
+- Monroy Alvarez Itzel
+- Rodriguez Mendoza Ian Manuel
 
-##Tecnologías utilizadas
+## Link del powerpoint con capturas
+https://unisonmx-my.sharepoint.com/:p:/g/personal/a223209555_unison_mx/EdW8K-fmI35DlYrhnYb3LKwBDhbVM5L3NOrX92cIvI6fdA?e=RbvIPv 
+
+## Tecnologías utilizadas
 
 - Java 
 - MySQL
 - JDBC (MySQL Connector)
 - IDE sugerido: VSCode o IntelliJ IDEA
 
-##Estructura del proyecto
+## Estructura del proyecto
 
-##PROYECTO BD2/
+## PROYECTO BD2/
 ├── src/
 │   └── main/
 │       ├── java/
@@ -35,7 +38,7 @@ Este proyecto es una aplicación de consola desarrollada en Java que permite a m
 ├── .project
 └── settings.json
 
-##Funcionalidades principales
+## Funcionalidades principales
 
 - Gestión de entidades: Agregar, modificar y eliminar (o desactivar) registros de usuarios, plataformas y juegos.
 - Consultas:
@@ -47,7 +50,7 @@ Este proyecto es una aplicación de consola desarrollada en Java que permite a m
   - Triggers para registrar operaciones en la tabla log.
   - Restauración del estado de la base de datos desde el último CHECKP.
 
-##Instrucciones de instalación y ejecución
+## Instrucciones de instalación y ejecución
 
 1. Clonar el repositorio:
    git clone https://github.com/Aron-Iniguez/Proyecto_BD2.git
@@ -64,10 +67,10 @@ Este proyecto es una aplicación de consola desarrollada en Java que permite a m
 5. Ejecutar el programa:
    - Ejecuta la clase PrincipalMenu.java desde tu IDE.
 
-##Declaración de uso de asistentes digitales
+## Declaración de uso de asistentes digitales
 
 Durante el desarrollo de este proyecto, se utilizaron herramientas de asistencia digital como GitHub Copilot y ChatGPT para apoyo en la escritura de código, depuración y documentación.
 
-##Licencia
+## Licencia
 
 Este proyecto es de uso académico y no cuenta con una licencia específica.
