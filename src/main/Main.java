@@ -18,7 +18,7 @@ public class Main {
         ConexionDB.obtenerConexion();
         
         //Al iniciar, registrar un CHECKP en la bitácora
-        //BitacoraService.insertarCheckpoint();
+        BitacoraService.insertarCheckpoint();
 
         while (true) {
             System.out.println("\n=== MENÚ PRINCIPAL ===");
@@ -43,7 +43,7 @@ public class Main {
                     menuColecciones();
                     break;
                 case 4:
-                    //BitacoraService.restaurarDesdeCheckpoint()
+                    BitacoraService.restaurarDesdeCheckpoint()
                     break;
                 case 0:
                     System.out.println("Saliendo del programa...");
@@ -133,10 +133,10 @@ public class Main {
                     ColeccionService.agregarJuegoConTransaccion();
                     break;
                 case 2: 
-                    //ColeccionService.modificarJuegoConTransaccion();
+                    ColeccionService.modificarJuegoConTransaccion();
                     break;
                 case 3:
-                    //ColeccionService.eliminarJuegoConTransaccion();
+                    ColeccionService.eliminarJuegoConTransaccion();
                     break;
                 case 0:
                     return;
