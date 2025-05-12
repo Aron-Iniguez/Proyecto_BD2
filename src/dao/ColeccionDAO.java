@@ -64,4 +64,20 @@ public class ColeccionDAO {
 
         return lista;
     }
+
+    public static boolean existeJuegoEnColeccion(int userId, int gameId) {
+        String sql = "SELECT COUNT(*) FROM game_collection WHERE user_id = ? AND game_id = ?";
+        try (Connection conn = ConexionDB.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ps.setInt(2, gameId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            System.err.println("Error comprobando colección: " + e.getMessage());
+        }
+        return false;
+    }
 }

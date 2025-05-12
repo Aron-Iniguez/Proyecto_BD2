@@ -7,11 +7,8 @@ package main;
  */
 
 import conexion.ConexionDB;
-import menus.UsuarioMenu;
-import menus.PlataformaMenu;
-import menus.JuegoMenu;
-import menus.ColeccionMenu;
-import servicios.ConsultaService;
+import menus.*;
+import servicios.*;
 
 import java.util.Scanner;
 
@@ -133,9 +130,9 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    //ColeccionService.agregarJuegoConTransaccion();
+                    ColeccionService.agregarJuegoConTransaccion();
                     break;
-                case 2:
+                case 2: 
                     //ColeccionService.modificarJuegoConTransaccion();
                     break;
                 case 3:

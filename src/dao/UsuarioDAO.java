@@ -83,4 +83,19 @@ public class UsuarioDAO {
             return false;
         }
     }
+
+    public static boolean existeUsuario(int userId) {
+        String sql = "SELECT COUNT(*) FROM users WHERE user_id = ?";
+        try (Connection conn = ConexionDB.obtenerConexion();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al verificar si existe el usuario: " + e.getMessage());
+        }
+        return false;
+    }
 }

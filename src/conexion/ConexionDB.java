@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConexionDB {
     private static final String URL = "jdbc:mysql://localhost:3306/videogame_collection";
     private static final String USER = "root";
-    private static final String PASSWORD = "1234"; // tu contraseña
+    private static final String PASSWORD = "1234";
 
     public static Connection obtenerConexion() {
         Connection conn = null;

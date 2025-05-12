@@ -80,4 +80,19 @@ public class JuegoDAO {
             return false;
         }
     }
+
+    public static boolean existeJuego(int gameId) {
+        String sql = "SELECT COUNT(*) FROM games WHERE game_id = ?";
+        try (Connection conn = ConexionDB.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, gameId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            System.err.println("Error comprobando existencia de juego: " + e.getMessage());
+        }
+        return false;
+    }
 }
