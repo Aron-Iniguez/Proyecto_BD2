@@ -105,12 +105,12 @@ public class Main {
             switch (opcion) {
                 case 1:
                     ConsultaService.mostrarColeccionPorUsuario();
-                    break;
+                    break;  
                 case 2:
-                    //ConsultaService.juegosConMasColeccionistas();
+                    ConsultaService.juegosConMasColeccionistas();
                     break;
                 case 3:
-                    //ConsultaService.top5MejorRating();
+                    ConsultaService.top5MejorRating();
                     break;
                 case 0:
                     return;

@@ -54,5 +54,77 @@ public class ConsultaService {
         }
     }
 
-    // Métodos para opciones 2 y 3
+    public static void juegosConMasColeccionistas() {
+        String sql = """
+                SELECT g.game_name, p.platform_name, COUNT(gc.user_id) AS coleccionistas
+                FROM game_collection gc
+                JOIN games g ON gc.game_id = g.game_id
+                JOIN platform p ON g.platform_id = p.platform_id
+                GROUP BY g.game_id, g.game_name, p.platform_name
+                ORDER BY coleccionistas DESC
+                """;
+
+        try (Connection conn = ConexionDB.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
+
+            System.out.println("\n--- Videojuegos con más coleccionistas ---");
+
+            boolean hayResultados = false;
+
+            while (rs.next()) {
+                hayResultados = true;
+                String gameName = rs.getString("game_name");
+                String platform = rs.getString("platform_name");
+                int count = rs.getInt("coleccionistas");
+
+                System.out.printf("🎮 %s (%s) → Coleccionistas: %d%n", gameName, platform, count);
+            }
+
+            if (!hayResultados) {
+                System.out.println("⚠️ No hay juegos en colecciones.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error al consultar los juegos con más coleccionistas: " + e.getMessage());
+        }
+    }
+    
+    public static void top5MejorRating() {
+        String sql = """
+                SELECT g.game_name, p.platform_name, ROUND(AVG(gc.rating), 2) AS promedio_rating
+                FROM game_collection gc
+                JOIN games g ON gc.game_id = g.game_id
+                JOIN platform p ON g.platform_id = p.platform_id
+                GROUP BY g.game_id, g.game_name, p.platform_name
+                HAVING COUNT(gc.rating) > 0
+                ORDER BY promedio_rating DESC
+                LIMIT 5
+                """;
+
+        try (Connection conn = ConexionDB.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
+
+            System.out.println("\n--- Top 5 Juegos con Mejor Rating Promedio ---");
+
+            boolean hayResultados = false;
+
+            while (rs.next()) {
+                hayResultados = true;
+                String nombre = rs.getString("game_name");
+                String plataforma = rs.getString("platform_name");
+                double promedio = rs.getDouble("promedio_rating");
+
+                System.out.printf("⭐ %s (%s) → Promedio: %.2f%n", nombre, plataforma, promedio);
+            }
+
+            if (!hayResultados) {
+                System.out.println("⚠️ No hay juegos con calificaciones suficientes.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error al obtener el top 5 de juegos mejor calificados: " + e.getMessage());
+        }
+    }
 }
