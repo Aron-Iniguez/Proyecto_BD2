@@ -94,9 +94,71 @@ public class ColeccionService {
         }
     }
 
-    // Métodos pendientes a implementar
+    
     public static void modificarJuegoConTransaccion() {
-        // Por implementar
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Ingrese el ID del usuario: ");
+        int userId = sc.nextInt();
+        sc.nextLine();
+
+        if (!UsuarioDAO.existeUsuario(userId)) {
+            System.out.println("⚠️ Usuario no encontrado.");
+            return;
+        }
+
+        System.out.print("Ingrese el ID del juego en la colección que desea modificar: ");
+        int gameId = sc.nextInt();
+        sc.nextLine();
+
+        if (!JuegoDAO.existeJuego(gameId)) {
+            System.out.println("⚠️ Juego no encontrado.");
+            return;
+        }
+
+        System.out.print("Ingrese el nuevo rating (1 a 10): ");
+        int nuevoRating = sc.nextInt();
+        sc.nextLine();
+
+        if (nuevoRating < 1 || nuevoRating > 10) {
+            System.out.println("⚠️ Rating inválido.");
+            return;
+        }
+
+        String sqlUpdate = "UPDATE game_collection SET rating = ?, date_added = CURRENT_TIMESTAMP WHERE user_id = ? AND game_id = ?";
+        try (Connection conn = ConexionDB.obtenerConexion()) {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement ps = conn.prepareStatement(sqlUpdate)) {
+                ps.setInt(1, nuevoRating);
+                ps.setInt(2, userId);
+                ps.setInt(3, gameId);
+
+                int filasAfectadas = ps.executeUpdate();
+                if (filasAfectadas > 0) {
+                    // Registrar en la tabla log
+                    String sqlLog = "INSERT INTO log (user_id, action_type, table_name, record_id, sql_instruction) VALUES (?, 'UPDATE', 'game_collection', ?, ?)";
+                    try (PreparedStatement psLog = conn.prepareStatement(sqlLog)) {
+                        psLog.setInt(1, userId);
+                        psLog.setInt(2, gameId);
+                        psLog.setString(3, sqlUpdate.replace("?", String.valueOf(nuevoRating)).replace("?", String.valueOf(userId)).replace("?", String.valueOf(gameId)));
+                        psLog.executeUpdate();
+                    }
+
+                    conn.commit();
+                    System.out.println("✅ Juego modificado en la colección exitosamente.");
+                } else {
+                    conn.rollback();
+                    System.out.println("⚠️ No se encontró el juego en la colección del usuario.");
+                }
+            } catch (SQLException e) {
+                conn.rollback();
+                System.out.println("❌ Error al modificar juego: " + e.getMessage());
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error de conexión: " + e.getMessage());
+        }
     }
 
     public static void eliminarJuegoConTransaccion() {
